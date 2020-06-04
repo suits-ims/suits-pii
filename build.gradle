@@ -2,12 +2,11 @@ plugins {
 	id 'org.springframework.boot' version '2.2.6.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
-	id 'com.google.gms.google-services'
 }
 
 group = 'com.suits'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '14'
+sourceCompatibility = '11'
 
 configurations {
 	developmentOnly
@@ -32,10 +31,9 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 
-	compile group: 'com.google.firebase', name: 'firebase-auth', version: '19.3.0'
+	implementation 'com.google.firebase:firebase-admin:6.13.0'
+	compile group: 'com.google.cloud', name: 'google-cloud-storage', version: '1.108.0'
 
-	compile 'com.google.firebase:firebase-auth:19.3.0'
-	compile 'com.google.firebase:firebase-storage:19.3.0'
 }
 
 test {
