@@ -21,7 +21,7 @@ public class StorageService {
 
     public UUID uploadFile(final MultipartFile file) throws IOException {
         UUID avatarId = UUID.randomUUID();
-        bucket.create(avatarId.toString(), file.getInputStream());
+        bucket.create(avatarId.toString(), file.getInputStream(), file.getContentType());
 
         return avatarId;
     }
