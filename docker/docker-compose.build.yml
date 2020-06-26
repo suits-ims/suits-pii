@@ -1,0 +1,10 @@
+version: '3.5'
+
+services:
+  gradle:
+    image: openjdk:13-slim
+    volumes:
+      - ${PWD}:${PWD}
+    working_dir: ${PWD}
+    user: ${USER_ID}
+    entrypoint: ./gradlew

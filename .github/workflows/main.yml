@@ -1,0 +1,26 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build
+        run: make build
+      - name: Image
+        run: make image
+      - name: Push
+        env:
+          DOCKER_REPOSITORY_USERNAME: ${{ secrets.DOCKER_REPOSITORY_USERNAME }}
+          DOCKER_REPOSITORY_PASSWORD: ${{ secrets.DOCKER_REPOSITORY_PASSWORD }}
+        if: github.ref == 'refs/heads/master' && job.status == 'success'
+        run: make push
+      - name: Deploy
+        env:
+          HEROKU_API_TOKEN: ${{ secrets.HEROKU_API_TOKEN }}
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_TOKEN }}
+          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+        if: github.ref == 'refs/heads/master' && job.status == 'success'
+        run: make deploy

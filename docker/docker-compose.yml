@@ -1,0 +1,16 @@
+version: '3.5'
+
+services:
+  app:
+    image: openjdk:13-slim
+    volumes:
+      - ${PWD}/build/libs/suits-api-${TAG}.jar:${PWD}/app.jar
+    working_dir: ${PWD}
+    user: ${USER_ID}
+    ports:
+      - 8080:8080
+    env_file: .env
+    entrypoint: ["java", "-jar", "app.jar"]
+    links:
+      - suits-database
+      - suits-auth
